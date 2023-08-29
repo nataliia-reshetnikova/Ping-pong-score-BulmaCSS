@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Ping Pong Score Keeper</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+
+	<section class="section m-auto">
+    <div class="card is-medium is-centered">
+			<div class="card-image">
+			<figure class="image is-5by3">
+			<img width="200px" src="https://images.unsplash.com/photo-1611762348135-5b09d2f0390d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="ping pong"/>
+		</figure>
+	</div>
+	<h1 class="title is-size-6 m-4">
+		Ping Pong Score Keeper
+	</h1>
+	<hr class="divider m-0">
+	<div class="card-content">
+
+      <h2 class="subtitle is-size-1">
+        <span id="playerOneScore">0</span> to <span id="playerTwoScore">0</span>
+			</h2>
+			<p class="is-size-6 has-text-weight-light">Use the buttons below to keep score.</p>
+			<form>
+			<label class="subtitle is-6" for="rounds">Playing to</label>
+			<div class="select is-rounded is-small">
+				<select  name="rounds" id="rounds">
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+				</select>
+			</div>
+
+    </div>
+		<footer class="card-footer is-flex is-justify-content-space-evenly	">
+			<button id="playerOne" class="card-footer-item button is-primary">+1 Player One</button>
+			<button id="playerTwo" class="card-footer-item button is-info">+1 Player Two</button>
+			<input type="reset" value="Reset" id="reset" class="card-footer-item button is-danger">
+		</footer>
+	</form>
+		</div>
+  </section>
+    
+		<script src="app.js"></script>
+</body>
+
+</html>
