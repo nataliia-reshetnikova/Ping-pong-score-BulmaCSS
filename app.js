@@ -1,29 +1,60 @@
-const playerOne = document.querySelector("#playerOne");
-const playerTwo = document.querySelector("#playerTwo");
+const playerOneBtn = document.querySelector("#playerOne");
+const playerTwoBtn = document.querySelector("#playerTwo");
 const reset = document.querySelector("#reset");
 const selectRounds = document.querySelector("#rounds");
 const playerOneScoreEl = document.querySelector("#playerOneScore");
 const playerTwoScoreEl = document.querySelector("#playerTwoScore");
 
+//set initial score
 let playerOneScore = 0;
-let platerTwoScore = 0;
+let playerTwoScore = 0;
+let winScore = parseInt(selectRounds.value);
 
-selectRounds.addEventListener("select", (e) => {
-  console.log(e);
+selectRounds.addEventListener("change", (e) => {
+  winScore = parseInt(e.target.value);
 });
 
-reset.addEventListener("click", (e) => {
+//select input value will reset automatically
+reset.addEventListener("click", () => {
   playerOneScoreEl.innerText = "0";
   playerTwoScoreEl.innerText = "0";
+  playerOneScoreEl.classList.remove("has-text-success");
+  playerTwoScoreEl.classList.remove("has-text-success");
   playerOneScore = 0;
-  platerTwoScore = 0;
+  playerTwoScore = 0;
+  selectRounds.removeAttribute("disabled");
+  playerOneBtn.removeAttribute("disabled");
+  playerTwoBtn.removeAttribute("disabled");
 });
 
-playerOne.addEventListener("click", () => {});
+playerOneBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  scorePlayer(1);
+});
 
-playerTwo.addEventListener("click", () => {});
+playerTwoBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  scorePlayer(2);
+});
 
-const checkScore = () => {
-  if (playerOneScore) {
+function scorePlayer(player) {
+  selectRounds.setAttribute("disabled", "");
+  winScore = parseInt(selectRounds.value);
+  if (player === 1) {
+    playerOneScore++;
+    playerOneScoreEl.innerText = playerOneScore;
+    if (playerOneScore === winScore) {
+      playerOneScoreEl.classList.add("has-text-success");
+      playerOneBtn.setAttribute("disabled", "");
+      playerTwoBtn.setAttribute("disabled", "");
+    }
+  } else if (player === 2) {
+    playerTwoScore++;
+    playerTwoScoreEl.innerText = playerTwoScore;
+    if (playerTwoScore === winScore) {
+      playerTwoScoreEl.classList.add("has-text-success");
+      playerOneBtn.setAttribute("disabled", "");
+      playerTwoBtn.setAttribute("disabled", "");
+    }
   }
-};
+}
