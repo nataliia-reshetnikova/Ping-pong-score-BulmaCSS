@@ -1,60 +1,53 @@
-const playerOneBtn = document.querySelector("#playerOne");
-const playerTwoBtn = document.querySelector("#playerTwo");
+const p1 = {
+  button: document.querySelector("#playerOne"),
+  display: document.querySelector("#playerOneScore"),
+  score: 0
+};
+
+const p2 = {
+  button: document.querySelector("#playerTwo"),
+  display: document.querySelector("#playerTwoScore"),
+  score: 0
+};
+
 const reset = document.querySelector("#reset");
 const selectRounds = document.querySelector("#rounds");
-const playerOneScoreEl = document.querySelector("#playerOneScore");
-const playerTwoScoreEl = document.querySelector("#playerTwoScore");
-
-//set initial score
-let playerOneScore = 0;
-let playerTwoScore = 0;
 let winScore = parseInt(selectRounds.value);
 
-selectRounds.addEventListener("change", (e) => {
-  winScore = parseInt(e.target.value);
+selectRounds.addEventListener("change", () => {
+  winScore = parseInt(this.value);
 });
 
 //select input value will reset automatically
 reset.addEventListener("click", () => {
-  playerOneScoreEl.innerText = "0";
-  playerTwoScoreEl.innerText = "0";
-  playerOneScoreEl.classList.remove("has-text-success");
-  playerTwoScoreEl.classList.remove("has-text-success");
-  playerOneScore = 0;
-  playerTwoScore = 0;
+  for (p of [p1, p2]) {
+    p.display.innerText = "0";
+    p.display.classList.remove(...p.display.classList);
+    p.button.disabled = false;
+    p.score = 0;
+  }
   selectRounds.removeAttribute("disabled");
-  playerOneBtn.removeAttribute("disabled");
-  playerTwoBtn.removeAttribute("disabled");
 });
 
-playerOneBtn.addEventListener("click", (e) => {
+p1.button.addEventListener("click", (e) => {
   e.preventDefault();
-  scorePlayer(1);
+  scorePlayers(p1, p2);
 });
 
-playerTwoBtn.addEventListener("click", (e) => {
+p2.button.addEventListener("click", (e) => {
   e.preventDefault();
-  scorePlayer(2);
+  scorePlayers(p2, p1);
 });
 
-function scorePlayer(player) {
+function scorePlayers(player, opponent) {
   selectRounds.setAttribute("disabled", "");
   winScore = parseInt(selectRounds.value);
-  if (player === 1) {
-    playerOneScore++;
-    playerOneScoreEl.innerText = playerOneScore;
-    if (playerOneScore === winScore) {
-      playerOneScoreEl.classList.add("has-text-success");
-      playerOneBtn.setAttribute("disabled", "");
-      playerTwoBtn.setAttribute("disabled", "");
-    }
-  } else if (player === 2) {
-    playerTwoScore++;
-    playerTwoScoreEl.innerText = playerTwoScore;
-    if (playerTwoScore === winScore) {
-      playerTwoScoreEl.classList.add("has-text-success");
-      playerOneBtn.setAttribute("disabled", "");
-      playerTwoBtn.setAttribute("disabled", "");
-    }
+  player.score++;
+  player.display.innerText = player.score;
+  if (player.score === winScore) {
+    player.display.classList.add("has-text-success");
+    opponent.display.classList.add("has-text-danger");
+    player.button.disabled = true;
+    opponent.button.disabled = true;
   }
 }
